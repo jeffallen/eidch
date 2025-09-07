@@ -1,0 +1,10 @@
+{
+  "client_id": "did:example:test-verifier",
+  "client_name": "EID-CH Verifier Agent Go Port",
+  "client_name#en": "EID-CH Verifier Agent (English)",
+  "client_name#fr": "Agent Vérificateur EID-CH (Français)",
+  "client_name#de": "EID-CH Verifier Agent (Deutsch)",
+  "client_name#de-CH": "EID-CH Verifier Agent (Schweizerdeutsch)",
+  "logo_uri": "https://example.com/logo.png",
+  "logo_uri#fr": "https://example.com/logo_fr.png"
+}
