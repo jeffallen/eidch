@@ -1,6 +1,15 @@
-# EID-CH Verifier Agent OID4VP - Go Port
+# Swiss EID-CH Services - Go Ports
 
-A simple Go port of the [Swiss EID-CH Verifier Agent OID4VP](https://github.com/swiyu-admin-ch/eidch-verifier-agent-oid4vp) service, implementing OpenID4VP (OpenID for Verifiable Presentations) specification using only Go standard library dependencies.
+Go ports of the Swiss EID-CH (Electronic Identity Switzerland) services, implementing OpenID4VC standards (OpenID for Verifiable Credentials) using only Go standard library dependencies.
+
+This repository contains two main services:
+
+1. **[Verifier Agent (OID4VP)](#verifier-agent-oid4vp)** - Verifies verifiable presentations
+2. **[Issuer Service (OID4VCI)](#issuer-service-oid4vci)** - Issues verifiable credentials
+
+## Verifier Agent (OID4VP)
+
+A Go port of the [Swiss EID-CH Verifier Agent OID4VP](https://github.com/swiyu-admin-ch/eidch-verifier-agent-oid4vp) service, implementing OpenID4VP (OpenID for Verifiable Presentations) specification.
 
 ## Overview
 
@@ -284,3 +293,198 @@ Contributions are welcome! Please:
 - Use secure storage backends
 - Implement proper logging and monitoring
 - Add rate limiting and other security measures
+
+---
+
+## Issuer Service (OID4VCI)
+
+A Go port of the [Swiss EID-CH Issuer Service](https://github.com/swiyu-admin-ch/swiyu-issuer), implementing OpenID4VCI (OpenID for Verifiable Credential Issuance) specification.
+
+### Quick Start (Issuer)
+
+```bash
+# Start the issuer service
+./start-issuer.sh
+
+# Or build and run manually
+go run ./cmd/issuer-server
+```
+
+### Key Features (Issuer)
+
+- ✅ OpenID4VCI compliant endpoints
+- ✅ SD-JWT credential format support
+- ✅ Pre-authorized code flow
+- ✅ Credential offer management
+- ✅ Configurable storage backends
+- ✅ Well-known metadata endpoints
+- ✅ Management API for credential lifecycle
+
+### API Endpoints (Issuer)
+
+- **Well-known**: `/.well-known/openid-credential-issuer`
+- **Token Exchange**: `POST /oid4vci/api/token`
+- **Credential Issuance**: `POST /oid4vci/api/credential`
+- **Management**: `POST /management/api/credentials`
+- **Health**: `GET /health`
+
+### Configuration (Issuer)
+
+```bash
+export EXTERNAL_URL="http://localhost:8080"
+export ISSUER_ID="did:example:test-issuer"
+export VERIFICATION_METHOD="did:example:test-issuer#key-1"
+export STORAGE_TYPE="jsonfile"
+export STORAGE_DATA_DIR="./issuer-data"
+```
+
+See [ISSUER_README.md](ISSUER_README.md) for detailed documentation.
+
+---
+
+## Project Structure
+
+```
+├── cmd/
+│   ├── verification-server/    # Verifier service main
+│   └── issuer-server/          # Issuer service main
+├── config/                     # Verifier configuration
+├── domain/                     # Verifier domain models
+├── service/                    # Verifier business logic
+├── storage/                    # Verifier storage layer
+├── handlers/                   # Verifier HTTP handlers
+├── jwt/                        # JWT utilities (shared)
+├── issuer/                     # Issuer service package
+│   ├── config.go               # Issuer configuration
+│   ├── models.go               # Issuer domain models
+│   ├── services.go             # Issuer business logic
+│   ├── storage.go              # Issuer storage layer
+│   └── handlers.go             # Issuer HTTP handlers
+├── e2e_test.go                 # Verifier end-to-end tests
+├── issuer_e2e_test.go          # Issuer end-to-end tests
+├── start.sh                    # Verifier start script
+├── start-issuer.sh             # Issuer start script
+└── README.md                   # This file
+```
+
+## Testing
+
+### Run All Tests
+
+```bash
+# Test verifier service
+go test -v -run TestEndToEndVerificationFlow .
+
+# Test issuer service  
+go test -v -run TestIssuerEndToEndFlow .
+
+# Test individual packages
+go test ./storage/...
+go test ./service/...
+```
+
+### End-to-End Testing
+
+Both services include comprehensive end-to-end tests that reproduce functionality from the original Java implementations:
+
+- **Verifier**: Based on `VerificationControllerIT.java`
+- **Issuer**: Based on `IssuanceControllerIT.java`
+
+## Running Both Services
+
+```bash
+# Terminal 1: Start verifier service
+EXTERNAL_URL="http://localhost:8080" \
+VERIFIER_DID="did:example:verifier" \
+DID_VERIFICATION_METHOD="did:example:verifier#key-1" \
+go run ./cmd/verification-server
+
+# Terminal 2: Start issuer service  
+EXTERNAL_URL="http://localhost:8081" \
+ISSUER_ID="did:example:issuer" \
+VERIFICATION_METHOD="did:example:issuer#key-1" \
+SERVER_PORT="8081" \
+go run ./cmd/issuer-server
+```
+
+## OpenID4VC Flow
+
+```mermaid
+sequenceDiagram
+    participant I as Issuer
+    participant W as Wallet
+    participant V as Verifier
+
+    Note over I,V: Complete OpenID4VC Flow
+    
+    I->>W: 1. Credential Offer (QR/Deep Link)
+    W->>I: 2. GET /.well-known/openid-credential-issuer
+    W->>I: 3. POST /oid4vci/api/token (pre-auth code)
+    I->>W: 4. access_token + c_nonce
+    W->>I: 5. POST /oid4vci/api/credential (with proof)
+    I->>W: 6. Verifiable Credential (SD-JWT)
+    
+    Note over W,V: Verification Flow
+    
+    V->>W: 7. Verification Request (QR/Deep Link)
+    W->>V: 8. GET /api/v1/request-object/{id}
+    V->>W: 9. Presentation Request
+    W->>V: 10. POST /api/v1/request-object/{id}/response-data
+    V->>V: 11. Verify Credential
+```
+
+## Standards Compliance
+
+Both services implement the latest OpenID4VC specifications:
+
+- **OpenID4VP 1.0** (Verifiable Presentations)
+- **OpenID4VCI 1.0** (Verifiable Credential Issuance)
+- **SD-JWT** (Selective Disclosure for JWTs)
+- **DID** (Decentralized Identifiers) - basic support
+
+## Architecture Principles
+
+- **Minimal Dependencies**: Only Go standard library
+- **Clean Architecture**: Clear separation of concerns
+- **Minimal Main**: Configuration and server instantiation only
+- **Library Approach**: Core functionality in packages
+- **Pluggable Storage**: Memory, JSON files, or custom backends
+- **Comprehensive Testing**: End-to-end test coverage
+- **Standard Compliance**: Following OpenID4VC specifications
+
+## Production Considerations
+
+⚠️ **Important**: These implementations are simplified for development and testing. For production use:
+
+### Security Enhancements Needed
+
+- **Cryptographic Validation**: Full JWT signature verification
+- **DID Resolution**: Real DID document resolution
+- **Status List Management**: Proper credential revocation
+- **Key Management**: HSM or secure key storage
+- **Authentication**: Proper issuer/verifier authentication
+- **Authorization**: Access control and permissions
+- **Rate Limiting**: DDoS protection
+- **Input Validation**: Comprehensive sanitization
+- **Secure Storage**: Encrypted database backends
+- **Monitoring**: Logging, metrics, and alerting
+
+### Scalability Enhancements
+
+- **Database Integration**: PostgreSQL, MySQL, etc.
+- **Caching**: Redis for session management
+- **Load Balancing**: Multiple service instances
+- **API Gateway**: Centralized routing and security
+- **Message Queues**: Asynchronous processing
+- **Microservices**: Service decomposition
+
+## Interoperability
+
+These Go ports are designed to be interoperable with:
+
+- Original Java implementations
+- Other OpenID4VC compliant services
+- Standard wallet implementations
+- Swiss e-ID ecosystem components
+
+Testing has verified compatibility with the API contracts and error handling patterns of the original services.
