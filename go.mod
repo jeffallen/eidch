@@ -1,3 +1,3 @@
-module eidch-verifier-agent-oid4vp-go
+module github.com/jeffallen/eiech
 
-go 1.21
+go 1.25.1
