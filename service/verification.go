@@ -1,14 +1,15 @@
 package service
 
 import (
-	"eidch-verifier-agent-oid4vp-go/config"
-	"eidch-verifier-agent-oid4vp-go/domain"
-	"eidch-verifier-agent-oid4vp-go/storage"
 	"encoding/json"
 	"fmt"
 	"log"
 	"strings"
 	"time"
+
+	"github.com/jeffallen/eiech/config"
+	"github.com/jeffallen/eiech/domain"
+	"github.com/jeffallen/eiech/storage"
 )
 
 // VerificationError represents a verification error with context

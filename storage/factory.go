@@ -1,9 +1,10 @@
 package storage
 
 import (
-	"eidch-verifier-agent-oid4vp-go/config"
 	"fmt"
 	"strings"
+
+	"github.com/jeffallen/eiech/config"
 )
 
 // NewRepository creates a new Repository based on the configuration

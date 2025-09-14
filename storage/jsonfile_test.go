@@ -1,11 +1,12 @@
 package storage
 
 import (
-	"eidch-verifier-agent-oid4vp-go/domain"
 	"os"
 	"path/filepath"
 	"testing"
 	"time"
+
+	"github.com/jeffallen/eiech/domain"
 )
 
 func TestJSONFileStorage(t *testing.T) {

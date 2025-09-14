@@ -1,14 +1,15 @@
 package main
 
 import (
-	"eidch-verifier-agent-oid4vp-go/config"
-	"eidch-verifier-agent-oid4vp-go/handlers"
-	"eidch-verifier-agent-oid4vp-go/service"
-	"eidch-verifier-agent-oid4vp-go/storage"
 	"fmt"
 	"log"
 	"net/http"
 	"time"
+
+	"github.com/jeffallen/eiech/config"
+	"github.com/jeffallen/eiech/handlers"
+	"github.com/jeffallen/eiech/service"
+	"github.com/jeffallen/eiech/storage"
 )
 
 func main() {

@@ -1,8 +1,9 @@
 package main
 
 import (
-	"eidch-verifier-agent-oid4vp-go/issuer"
 	"log"
+
+	"github.com/jeffallen/eiech/issuer"
 )
 
 func main() {

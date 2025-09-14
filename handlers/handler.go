@@ -1,15 +1,16 @@
 package handlers
 
 import (
-	"eidch-verifier-agent-oid4vp-go/config"
-	"eidch-verifier-agent-oid4vp-go/domain"
-	"eidch-verifier-agent-oid4vp-go/service"
 	"encoding/json"
 	"fmt"
 	"log"
 	"net/http"
 	"net/url"
 	"strings"
+
+	"github.com/jeffallen/eiech/config"
+	"github.com/jeffallen/eiech/domain"
+	"github.com/jeffallen/eiech/service"
 )
 
 // Handler contains all HTTP handlers
@@ -172,7 +173,7 @@ func (h *Handler) healthCheck(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 	json.NewEncoder(w).Encode(map[string]string{
 		"status":  "healthy",
-		"service": "eidch-verifier-agent-oid4vp-go",
+		"service": "github.com/jeffallen/eiech",
 	})
 }
 

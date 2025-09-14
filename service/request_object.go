@@ -1,12 +1,13 @@
 package service
 
 import (
-	"eidch-verifier-agent-oid4vp-go/config"
-	"eidch-verifier-agent-oid4vp-go/domain"
-	"eidch-verifier-agent-oid4vp-go/jwt"
-	"eidch-verifier-agent-oid4vp-go/storage"
 	"fmt"
 	"log"
+
+	"github.com/jeffallen/eiech/config"
+	"github.com/jeffallen/eiech/domain"
+	"github.com/jeffallen/eiech/jwt"
+	"github.com/jeffallen/eiech/storage"
 )
 
 // RequestObjectService handles request object operations

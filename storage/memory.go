@@ -1,10 +1,11 @@
 package storage
 
 import (
-	"eidch-verifier-agent-oid4vp-go/domain"
 	"fmt"
 	"sync"
 	"time"
+
+	"github.com/jeffallen/eiech/domain"
 )
 
 // MemoryStorage implements an in-memory storage for ManagementEntity

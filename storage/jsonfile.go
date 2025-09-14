@@ -1,13 +1,14 @@
 package storage
 
 import (
-	"eidch-verifier-agent-oid4vp-go/domain"
 	"encoding/json"
 	"fmt"
 	"os"
 	"path/filepath"
 	"sync"
 	"time"
+
+	"github.com/jeffallen/eiech/domain"
 )
 
 // JSONFileStorage implements Repository using JSON files in a directory

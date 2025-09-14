@@ -2,11 +2,12 @@ package issuer
 
 import (
 	"crypto/rand"
-	"eidch-verifier-agent-oid4vp-go/jwt"
 	"encoding/base64"
 	"fmt"
 	"strings"
 	"time"
+
+	"github.com/jeffallen/eiech/jwt"
 )
 
 // CredentialService handles credential-related operations

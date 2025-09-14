@@ -2,7 +2,6 @@ package main
 
 import (
 	"bytes"
-	"eidch-verifier-agent-oid4vp-go/issuer"
 	"encoding/json"
 	"io"
 	"net/http"
@@ -11,6 +10,8 @@ import (
 	"strings"
 	"testing"
 	"time"
+
+	"github.com/jeffallen/eiech/issuer"
 )
 
 // TestIssuerEndToEndFlow tests the complete issuer flow similar to the Java IssuanceControllerIT

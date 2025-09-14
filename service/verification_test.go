@@ -1,11 +1,12 @@
 package service
 
 import (
-	"eidch-verifier-agent-oid4vp-go/config"
-	"eidch-verifier-agent-oid4vp-go/domain"
-	"eidch-verifier-agent-oid4vp-go/storage"
 	"testing"
 	"time"
+
+	"github.com/jeffallen/eiech/config"
+	"github.com/jeffallen/eiech/domain"
+	"github.com/jeffallen/eiech/storage"
 )
 
 func TestVerificationService_ReceiveVerificationPresentation(t *testing.T) {

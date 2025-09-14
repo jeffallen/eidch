@@ -1,6 +1,6 @@
 package storage
 
-import "eidch-verifier-agent-oid4vp-go/domain"
+import "github.com/jeffallen/eiech/domain"
 
 // Repository defines the interface for storing and retrieving ManagementEntity objects
 type Repository interface {
