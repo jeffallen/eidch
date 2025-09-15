@@ -20,6 +20,8 @@ import (
 
 // TestEndToEndVerificationFlow tests the complete verification flow
 func TestEndToEndVerificationFlow(t *testing.T) {
+	t.Fatal("fix this")
+
 	// Create test configuration
 	cfg := createTestConfig()
 
